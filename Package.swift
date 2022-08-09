@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "MuMenuSky",
+    platforms: [.iOS(.v15)],
     products: [
         .library(
             name: "MuMenuSky",
@@ -20,6 +21,6 @@ let package = Package(
             dependencies: ["MuMenu","Tr3"]),
         .testTarget(
             name: "MuMenuSkyTests",
-            dependencies: ["MuMenuSky"]),
+            dependencies: ["MuMenu"]),
     ]
 )

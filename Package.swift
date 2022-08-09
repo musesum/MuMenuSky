@@ -21,6 +21,6 @@ let package = Package(
             dependencies: ["MuMenu","Tr3"]),
         .testTarget(
             name: "MuMenuSkyTests",
-            dependencies: ["MuMenu"]),
+            dependencies: ["MuMenu","Tr3"]),
     ]
 )

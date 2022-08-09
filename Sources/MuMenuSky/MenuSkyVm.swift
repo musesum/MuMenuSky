@@ -9,9 +9,9 @@ import SwiftUI
 import MuMenu
 import Tr3
 
-class MenuSkyVm: MenuVm {
+public class MenuSkyVm: MenuVm {
 
-    init(corner: MuCorner, axis: Axis) {
+    public init(corner: MuCorner, axis: Axis) {
 
         // init in sequence: nodes, root, tree, branch, touch
         let skyTreeVm = MuTreeVm(axis: axis, corner: corner)

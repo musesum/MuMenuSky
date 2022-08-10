@@ -18,9 +18,11 @@ let package = Package(
     targets: [
         .target(
             name: "MuMenuSky",
-            dependencies: ["MuMenu","Tr3"]),
+            dependencies: ["MuMenu","Tr3"],
+            resources: [.process("Resources")]),
         .testTarget(
             name: "MuMenuSkyTests",
             dependencies: ["MuMenu","Tr3"]),
+        
     ]
 )

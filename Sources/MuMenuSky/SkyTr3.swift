@@ -14,7 +14,7 @@ class SkyTr3: NSObject {
     func parseScriptFiles() {
 
         func parseFile(_ fileName: String) {
-            let _ = Tr3Parse.shared.parseTr3(root, fileName)
+            let _ = MuMenuSky.parseTr3(root, fileName)
         }
         
         // parseFile("sky")

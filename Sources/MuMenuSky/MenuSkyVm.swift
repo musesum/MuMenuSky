@@ -11,18 +11,21 @@ import Tr3
 
 public class MenuSkyVm: MenuVm {
 
-    public init(corner: MuCorner, axis: Axis) {
+    public init(corner: MuCorner,
+                axis: Axis,
+                rootTr3: Tr3?) {
 
         // init in sequence: nodes, root, tree, branch, touch
         let skyTreeVm = MuTreeVm(axis: axis, corner: corner)
-        let skyNodes = MenuSkyVm.skyNodes()
+        let skyNodes = MenuSkyVm.skyNodes(rootTr3)
         let skyBranchVm = MuBranchVm(nodes: skyNodes, treeVm: skyTreeVm)
         skyTreeVm.addBranchVms([skyBranchVm])
         super.init(MuRootVm(corner, treeVms: [skyTreeVm]))
     }
 
-    static func skyNodes() -> [MuNode] {
-        let rootTr3 = SkyTr3.shared.root
+    static func skyNodes(_ rootTr3: Tr3?) -> [MuNode] {
+
+        let rootTr3 = rootTr3 ?? SkyTr3.shared.root
         let rootNode = MuNodeTr3(rootTr3)
 
         if let menuTr3 = rootTr3.findPath("menu") {

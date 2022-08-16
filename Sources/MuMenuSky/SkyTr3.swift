@@ -17,10 +17,10 @@ class SkyTr3: NSObject {
             let _ = MuMenuSky.parseTr3(root, fileName)
         }
         
-        // parseFile("sky")
-        // parseFile("shader")
-        parseFile("menu")
-        // parseFile("midi")
+        // parseFile("mu.sky")
+        // parseFile("mu.shader")
+        parseFile("mu.menu")
+        // parseFile("mu.midi")
 
         // print(root.makeTr3Script(indent: 0, pretty: false))
     }

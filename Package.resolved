@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/MuMenu.git",
       "state" : {
-        "revision" : "f3a3f07600134361171a5f45fdc58e2306acd3cb",
-        "version" : "0.1.3"
+        "revision" : "e0eb85e10d0b34d30902b9d593620d86a01e47a7",
+        "version" : "0.1.4"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/Tr3.git",
       "state" : {
-        "revision" : "c2c12ac3421529102a172931b27e04f69c8f154a",
-        "version" : "0.2.33"
+        "revision" : "2fddc37f6e9310cfb0eceb05843695c66a9664a4",
+        "version" : "0.2.36"
       }
     }
   ],

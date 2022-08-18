@@ -21,6 +21,7 @@ public class MenuSkyVm: MenuVm {
         let skyBranchVm = MuBranchVm(nodes: skyNodes, treeVm: skyTreeVm)
         skyTreeVm.addBranchVms([skyBranchVm])
         super.init(MuRootVm(corner, treeVms: [skyTreeVm]))
+        MuIcon.altBundle = MuMenuSky.bundle
     }
 
     static func skyNodes(_ rootTr3: Tr3?) -> [MuNode] {

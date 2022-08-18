@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/MuMenu.git",
       "state" : {
-        "revision" : "e0eb85e10d0b34d30902b9d593620d86a01e47a7",
-        "version" : "0.1.4"
+        "revision" : "5f1f00690a8e774aba6ca9a5efcf5bc2842a8188",
+        "version" : "0.1.5"
       }
     },
     {

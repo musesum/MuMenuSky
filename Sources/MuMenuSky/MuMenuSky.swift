@@ -8,8 +8,9 @@
 import Foundation
 import Tr3
 
-public class MuMenuSky {
 
+public class MuMenuSky {
+    public static let bundle = Bundle.module
     static func read(_ filename: String, _ ext: String) -> String {
 
         guard let path = Bundle.module.path(forResource: filename, ofType: ext)  else {

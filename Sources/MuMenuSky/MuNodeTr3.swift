@@ -55,13 +55,13 @@ extension MuNodeTr3: MuNodeProtocol {
 
     public func setAny(named: String,_ any: Any) {
 
-        var options = Tr3SetOptions([.activate, .zero1])
+        var options = Tr3SetOptions([.activate])
         if caching { options.insert(.cache) }
         tr3.setAny((named,any), options, Visitor(id)) //TODO: get Visitor(id) from caller
     }
     public func setAnys(_ anys: [(String,Any)]) {
 
-        var options = Tr3SetOptions([.activate, .zero1])
+        var options = Tr3SetOptions([.activate])
         if caching { options.insert(.cache) }
         tr3.setAnys(anys, options, Visitor(id)) //TODO: get Visitor(id) from caller
     }

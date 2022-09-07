@@ -7,29 +7,35 @@
 
 import Foundation
 import Tr3
+import MuSky
 
+public struct MuMenuSky {
 
-public class MuMenuSky {
     public static let bundle = Bundle.module
-    static func read(_ filename: String, _ ext: String) -> String {
+
+    public static func read(_ filename: String,
+                            _ ext: String) -> String? {
 
         guard let path = Bundle.module.path(forResource: filename, ofType: ext)  else {
             print("🚫 MuMenuSky couldn't find file: \(filename)")
-            return ""
+            return nil
         }
         do {
             return try String(contentsOfFile: path) }
         catch {
             print("🚫 MuMenuSky::\(#function) error:\(error) loading contents of:\(path)")
         }
-        return ""
+        return nil
     }
 
     static public func parseTr3(_ root: Tr3,
                                 _ filename: String,
                                 _ ext: String = "tr3.h") -> Bool {
         
-        let script = read(filename, ext)
+        guard let script = MuSky.read(filename, ext) ?? read(filename, ext) else {
+            print("🚫 couldn't read \(filename).\(ext)")
+            return false
+        }
         print(filename, terminator: " ")
         let success = Tr3Parse().parseScript(root, script)
         print(success ? "✓" : "🚫 parse failed")

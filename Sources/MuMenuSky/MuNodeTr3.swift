@@ -16,22 +16,50 @@ public class MuNodeTr3: MuNode {
          parent: MuNode? = nil) {
 
         self.tr3 = tr3
-
         super.init(name: tr3.name,
                    icon: MuNodeTr3.makeTr3Icon(tr3),
                    parent: parent)
+        // default nodeType is .node
+
+        makeLeaf()
+    }
+
+    /// this is a leaf node
+    init(_ tr3: Tr3,
+         _ nodeType: MuNodeType,
+         _ icon: MuIcon,
+         parent: MuNode? = nil) {
+
+        self.tr3 = tr3
+
+        super.init(name: tr3.name,
+                   icon: icon,
+                   parent: parent)
+        self.nodeType = nodeType
 
         tr3.addClosure(getting) // update node value closuer
         proto = self // setup delegate for MuValue protocol
     }
-    public override func leafType() -> MuNodeType? {
+
+    /// optional leaf node for changing values
+    func makeLeaf() {
+        if children.count > 0 { return }
+
+        let nodeType = getNodeType()
+        if nodeType.isLeaf {
+            _ = MuNodeTr3(tr3, nodeType, icon, parent: self)
+        }
+    }
+
+    /// expression parameters: val vxy tog seg tap x,y indicates a leaf node
+    public override func getNodeType() -> MuNodeType {
         
         if let name = tr3.getName(in: MuNodeLeaves) {
-            return  MuNodeType(rawValue: name)
+            return  MuNodeType(rawValue: name) ?? .node
         } else if tr3.contains(names: ["x","y"]) {
             return MuNodeType.vxy
         }
-        return nil
+        return .node
     }
 
     static func makeTr3Icon(_ tr3: Tr3) -> MuIcon {

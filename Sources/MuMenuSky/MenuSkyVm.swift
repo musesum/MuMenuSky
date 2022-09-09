@@ -1,9 +1,4 @@
-//
-//  SkyVm.swift
-//  DeepMenu
-//
 //  Created by warren on 7/27/22.
-//
 
 import SwiftUI
 import MuMenu
@@ -84,11 +79,16 @@ public class MenuSkyVm: MenuVm {
 
         for child in viewTr3.children {
             if let nodeTr3 = findTr3Node(child) as? MuNodeTr3 {
-                nodeTr3.icon = MuNodeTr3.makeTr3Icon(child)
+                let icon = MuNodeTr3.makeTr3Icon(child)
+                nodeTr3.icon = icon
+                if nodeTr3.children.count == 1,
+                   let grandChild = nodeTr3.children.first,
+                   grandChild.nodeType.isLeaf {
+                    grandChild.icon = icon
+                }
                 mergeTr3(child, nodeTr3)
             }
         }
-
     }
 
 }

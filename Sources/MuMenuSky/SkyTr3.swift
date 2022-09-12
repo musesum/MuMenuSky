@@ -1,6 +1,6 @@
 import UIKit
 import Tr3
-import MuSky
+import MuSkyTr3
 
 
 class SkyTr3: NSObject {

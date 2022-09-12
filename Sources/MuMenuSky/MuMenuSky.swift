@@ -7,7 +7,7 @@
 
 import Foundation
 import Tr3
-import MuSky
+import MuSkyTr3
 
 public struct MuMenuSky {
 
@@ -32,7 +32,7 @@ public struct MuMenuSky {
                                 _ filename: String,
                                 _ ext: String = "tr3.h") -> Bool {
         
-        guard let script = MuSky.read(filename, ext) ?? read(filename, ext) else {
+        guard let script = MuSkyTr3.read(filename, ext) ?? read(filename, ext) else {
             print("🚫 couldn't read \(filename).\(ext)")
             return false
         }

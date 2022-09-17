@@ -19,22 +19,20 @@ public class MuNodeTr3: MuNode {
         super.init(name: tr3.name,
                    icon: MuNodeTr3.makeTr3Icon(tr3),
                    parent: parent)
-        // default nodeType is .node
 
-        makeLeaf()
+        nodeProto = self //??? 
+        makeOptionalLeaf()
     }
 
     /// this is a leaf node
     init(_ tr3: Tr3,
          _ nodeType: MuNodeType,
          _ icon: MuIcon,
-         parent: MuNode? = nil) {
+         parent: MuNodeTr3? = nil) {
 
         self.tr3 = tr3
 
-        super.init(name: tr3.name,
-                   icon: icon,
-                   parent: parent)
+        super.init(name: tr3.name, icon: icon, parent: parent)
         self.nodeType = nodeType
 
         tr3.addClosure(getting) // update node value closuer
@@ -43,7 +41,7 @@ public class MuNodeTr3: MuNode {
     }
 
     /// optional leaf node for changing values
-    func makeLeaf() {
+    func makeOptionalLeaf() {
         if children.count > 0 { return }
 
         let nodeType = getNodeType()

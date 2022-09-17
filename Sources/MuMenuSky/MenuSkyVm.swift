@@ -6,9 +6,9 @@ import Tr3
 
 public class MenuSkyVm: MenuVm {
 
-    public init(corner: MuCorner,
-                axis: Axis,
-                rootTr3: Tr3?) {
+    public init(_ corner: MuCorner,
+                _ axis: Axis,
+                _ rootTr3: Tr3) {
 
         // init in sequence: nodes, root, tree, branch, touch
         let skyTreeVm = MuTreeVm(axis: axis, corner: corner)
@@ -19,9 +19,8 @@ public class MenuSkyVm: MenuVm {
         MuIcon.altBundle = MuMenuSky.bundle
     }
 
-    static func skyNodes(_ rootTr3: Tr3?) -> [MuNode] {
+    static func skyNodes(_ rootTr3: Tr3) -> [MuNode] {
 
-        let rootTr3 = rootTr3 ?? SkyTr3.shared.root
         let rootNode = MuNodeTr3(rootTr3)
 
         if let menuTr3 = rootTr3.findPath("menu") {
@@ -35,7 +34,6 @@ public class MenuSkyVm: MenuVm {
             } else {
 
                 _ = parseTr3(menuTr3, rootNode)
-
             }
             return rootNode.children.first?.children ?? []
 

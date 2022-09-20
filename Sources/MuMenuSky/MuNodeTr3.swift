@@ -20,7 +20,7 @@ public class MuNodeTr3: MuNode {
                    icon: MuNodeTr3.makeTr3Icon(tr3),
                    parent: parent)
 
-        nodeProto = self //??? 
+        nodeProto = self
         makeOptionalLeaf()
     }
 

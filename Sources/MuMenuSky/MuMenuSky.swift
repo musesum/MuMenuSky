@@ -1,9 +1,4 @@
-//
-//  File.swift
-//  
-//
 //  Created by warren on 8/10/22.
-//
 
 import Foundation
 import Tr3

@@ -17,6 +17,7 @@ public class MenuSkyVm: MenuVm {
         skyTreeVm.addBranchVms([skyBranchVm])
         super.init(MuRootVm(corner, treeVms: [skyTreeVm]))
         MuIcon.altBundle = MuMenuSky.bundle
+        //??? rootVm.hideBranches() 
     }
 
     static func skyNodes(_ rootTr3: Tr3) -> [MuNode] {

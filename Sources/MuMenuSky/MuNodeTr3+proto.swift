@@ -31,7 +31,7 @@ extension MuNodeTr3: MuNodeProtocol {
         let any = tr3.component(named: named)
 
         if let val = any as? Tr3ValScalar {
-            return val.num
+            return val.now
         } else if let num = any as? Float {
             return num
         } else {
@@ -44,7 +44,7 @@ extension MuNodeTr3: MuNodeProtocol {
         let comps = tr3.components(named: named)
         for (name, any) in comps {
             if let val = any as? Tr3ValScalar {
-                result.append((name, val.num))
+                result.append((name, val.now))
             } else if let num = any as? Float {
                 result.append((name, num))
             } else {
@@ -100,7 +100,7 @@ extension MuNodeTr3: MuNodeProtocol {
 
                     if let val = any as? Tr3ValScalar {
 
-                        let num = val.num
+                        let num = val.now
                         proxy.updateLeaf(num)
 
                     } else {

@@ -1,21 +1,12 @@
 {
   "pins" : [
     {
-      "identity" : "mufiles",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/MuFiles.git",
-      "state" : {
-        "revision" : "ce7e92c84fe55ec4eee29ed964bb397d34d1cf9b",
-        "version" : "0.3.1"
-      }
-    },
-    {
       "identity" : "mumenu",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/MuMenu.git",
       "state" : {
-        "revision" : "4d4f27a32c61300e473721ee94013b0fbe2ee9e2",
-        "version" : "0.3.1"
+        "revision" : "d03fb3d3dde9f28cd0e079408a8ab9a8bb010cb6",
+        "version" : "0.3.2"
       }
     },
     {
@@ -50,8 +41,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/Tr3.git",
       "state" : {
-        "revision" : "ba9c36bf76f05b1d972c5f6b4106402ac7aed91c",
-        "version" : "0.3.1"
+        "revision" : "4ba55763d3925cfe7f7a78babe7f3ce69854e349",
+        "version" : "0.3.5"
       }
     }
   ],

@@ -12,7 +12,7 @@ public class MenuSkyVm: MenuVm {
 
         // init in sequence: nodes, root, tree, branch, touch
         let skyTreeVm = MuTreeVm(axis: axis, corner: corner)
-        let skyNodes = MenuSkyVm.skyNodes(rootTr3)
+        let skyNodes = MenuSkyVm.skyNodes(rootTr3, corner: corner)
         let skyBranchVm = MuBranchVm(nodes: skyNodes, treeVm: skyTreeVm)
         skyTreeVm.addBranchVms([skyBranchVm])
         super.init(MuRootVm(corner, treeVms: [skyTreeVm]))
@@ -20,20 +20,29 @@ public class MenuSkyVm: MenuVm {
         //??? rootVm.hideBranches() 
     }
 
-    static func skyNodes(_ rootTr3: Tr3) -> [MuNode] {
+    static func skyNodes(_ rootTr3: Tr3, corner: MuCorner) -> [MuNode] {
 
         let rootNode = MuNodeTr3(rootTr3)
 
         if let menuTr3 = rootTr3.findPath("menu") {
 
-            if let modelTr3 = menuTr3.findPath("model"),
-               let viewTr3  = menuTr3.findPath("view") {
+            let abbreviation = corner.abbreviation()
+            if let cornerTr3 = menuTr3.findPath(abbreviation),
+               let modelTr3 = menuTr3.findPath("model"),
+               let viewTr3  = cornerTr3.findPath("view") {
 
-                let node = parseTr3(modelTr3, rootNode)
-                mergeTr3(viewTr3, node)
+                let model = parseTr3(modelTr3, rootNode)
+                mergeTr3(viewTr3, model)
 
+                let components = viewTr3.components(named: ["depth", "touch"])
+                
+                for (key,value) in components {
+                    if let scalar = (value as? Tr3ValScalar) {
+                        print("*** \(key): \(scalar.now)")
+                    }
+                }
             } else {
-
+                // parse everything together
                 _ = parseTr3(menuTr3, rootNode)
             }
             return rootNode.children.first?.children ?? []

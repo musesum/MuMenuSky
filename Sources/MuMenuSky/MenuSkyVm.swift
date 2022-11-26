@@ -71,24 +71,26 @@ public class MenuSkyVm: MenuVm {
 
     /// merge menu.view with with menu.model
     static func mergeTr3(_ viewTr3: Tr3,
-                         _ parentNode: MuNode) {
+                         _ parentNode: MuNodeTr3) {
 
-        func findTr3Node(_ tr3: Tr3) -> MuNode? {
+        func findTr3Node(_ tr3: Tr3) -> MuNodeTr3? {
             if parentNode.title == tr3.name {
                 return parentNode
             }
             for childNode in parentNode.children {
-                if childNode.title == tr3.name {
-                    return childNode
+                if childNode.title == tr3.name,
+                let childNodeTr3 = childNode as? MuNodeTr3 {
+                    return childNodeTr3
                 }
             }
             return nil
         }
 
         for child in viewTr3.children {
-            if let nodeTr3 = findTr3Node(child) as? MuNodeTr3 {
+            if let nodeTr3 = findTr3Node(child) {
                 let icon = MuNodeTr3.makeTr3Icon(child)
                 nodeTr3.icon = icon
+                nodeTr3.viewTr3 = viewTr3
                 if nodeTr3.children.count == 1,
                    let grandChild = nodeTr3.children.first,
                    grandChild.nodeType.isLeaf {

@@ -6,18 +6,19 @@ import Tr3
 
 
 /// shared between 1 or more MuNodeVm
-public class MuNodeTr3: MuNode {
+open class MuNodeTr3: MuNode {
 
-    var tr3: Tr3
+    var modelTr3: Tr3
+    var viewTr3: Tr3?
     var caching = false
     var axis: Axis = .vertical
 
-    init(_ tr3: Tr3,
+    init(_ modelTr3: Tr3,
          parent: MuNode? = nil) {
 
-        self.tr3 = tr3
-        super.init(name: tr3.name,
-                   icon: MuNodeTr3.makeTr3Icon(tr3),
+        self.modelTr3 = modelTr3
+        super.init(name: modelTr3.name,
+                   icon: MuNodeTr3.makeTr3Icon(modelTr3),
                    parent: parent)
 
         nodeProto = self
@@ -25,37 +26,44 @@ public class MuNodeTr3: MuNode {
     }
 
     /// this is a leaf node
-    init(_ tr3: Tr3,
+    init(_ modelTr3: Tr3,
          _ nodeType: MuNodeType,
          _ icon: MuIcon,
          parent: MuNodeTr3? = nil) {
 
-        self.tr3 = tr3
+        self.modelTr3 = modelTr3
 
-        super.init(name: tr3.name, icon: icon, parent: parent)
+        super.init(name: modelTr3.name, icon: icon, parent: parent)
         self.nodeType = nodeType
 
-        tr3.addClosure(getting) // update node value closuer
+        modelTr3.addClosure(getting) // update node value closuer
         
         nodeProto = self // setup delegate for MuValue protocol
     }
 
+    override public func touch() {
+        if let viewTr3 {
+            let number = MuTouchNumber.getNext()
+            let nameFloat = ("touch", Float(number))
+            viewTr3.setAny(nameFloat, [.sneak])
+        }
+    }
     /// optional leaf node for changing values
     func makeOptionalLeaf() {
         if children.count > 0 { return }
 
         let nodeType = getNodeType()
         if nodeType.isLeaf {
-            _ = MuNodeTr3(tr3, nodeType, icon, parent: self)
+            _ = MuNodeTr3(modelTr3, nodeType, icon, parent: self)
         }
     }
 
     /// expression parameters: val vxy tog seg tap x,y indicates a leaf node
     public func getNodeType() -> MuNodeType {
         
-        if let name = tr3.getName(in: MuNodeLeaves) {
+        if let name = modelTr3.getName(in: MuNodeLeaves) {
             return  MuNodeType(rawValue: name) ?? .node
-        } else if tr3.contains(names: ["x","y"]) {
+        } else if modelTr3.contains(names: ["x","y"]) {
             return MuNodeType.vxy
         }
         return .node

@@ -11,24 +11,24 @@ extension MuNodeTr3: MuNodeProtocol {
 
         var options = Tr3SetOptions([.activate])
         if caching { options.insert(.cache) }
-        tr3.setAny((named,any), options, Visitor(id)) //TODO: get Visitor(id) from caller
+        modelTr3.setAny((named,any), options, Visitor(id)) //TODO: get Visitor(id) from caller
     }
     public func setAnys(_ anys: [(String, Any)]) {
 
         var options = Tr3SetOptions([.activate])
         if caching { options.insert(.cache) }
-        tr3.setAnys(anys, options, Visitor(id)) //TODO: get Visitor(id) from caller
+        modelTr3.setAnys(anys, options, Visitor(id)) //TODO: get Visitor(id) from caller
     }
 
     public func resetDefault() {
-        tr3.bindDefaults()
-        tr3.activate()
+        modelTr3.bindDefaults()
+        modelTr3.activate()
     }
 
     // MARK: - get
     public func getAny(named: String) -> Any? {
 
-        let any = tr3.component(named: named)
+        let any = modelTr3.component(named: named)
 
         if let val = any as? Tr3ValScalar {
             return val.now
@@ -41,7 +41,7 @@ extension MuNodeTr3: MuNodeProtocol {
     public func getAnys(named: [String]) -> [(String,Any?)] {
 
         var result = [(String,Any?)]()
-        let comps = tr3.components(named: named)
+        let comps = modelTr3.components(named: named)
         for (name, any) in comps {
             if let val = any as? Tr3ValScalar {
                 result.append((name, val.now))
@@ -55,11 +55,11 @@ extension MuNodeTr3: MuNodeProtocol {
     }
     public func getRange(named: String) -> ClosedRange<Float> {
 
-        let any = tr3.component(named: named)
+        let any = modelTr3.component(named: named)
 
         if let val = any as? Tr3ValScalar {
             return val.min...val.max
-        } else if let val = tr3.val as? Tr3ValScalar {
+        } else if let val = modelTr3.val as? Tr3ValScalar {
             return val.min...val.max
         } else {
             return 0...1
@@ -69,11 +69,11 @@ extension MuNodeTr3: MuNodeProtocol {
 
         var result = [(String,ClosedRange<Float>)]()
 
-        let comps = tr3.components(named: named)
+        let comps = modelTr3.components(named: named)
         for (name, any) in comps {
             if let val = any as? Tr3ValScalar {
                 result.append((name, val.min...val.max))
-            } else if let val = tr3.val as? Tr3ValScalar {
+            } else if let val = modelTr3.val as? Tr3ValScalar {
                 result.append((name, val.min...val.max))
             } else {
                 result.append((name, 0...1))

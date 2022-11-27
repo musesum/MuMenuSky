@@ -5,7 +5,7 @@ import MuMenu
 import Tr3
 import Par
 
-extension MuNodeTr3: MuNodeProtocol {
+extension MuTr3Node: MuNodeProtocol {
 
     public func setAny(named: String,_ any: Any) {
 

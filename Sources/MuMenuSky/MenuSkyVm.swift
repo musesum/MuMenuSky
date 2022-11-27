@@ -22,16 +22,16 @@ public class MenuSkyVm: MenuVm {
 
     static func skyNodes(_ rootTr3: Tr3, corner: MuCorner) -> [MuNode] {
 
-        let rootNode = MuNodeTr3(rootTr3)
+        let rootNode = MuTr3Node(rootTr3)
 
         if let menuTr3 = rootTr3.findPath("menu") {
 
             let abbreviation = corner.abbreviation()
             if let cornerTr3 = menuTr3.findPath(abbreviation),
-               let modelTr3 = menuTr3.findPath("model"),
+               let modelTr3 = cornerTr3.findPath("model"),
                let viewTr3  = cornerTr3.findPath("view") {
 
-                let model = parseTr3(modelTr3, rootNode)
+                let model = parseTr3Node(modelTr3, rootNode)
                 mergeTr3(viewTr3, model)
 
                 let components = viewTr3.components(named: ["depth", "touch"])
@@ -43,27 +43,27 @@ public class MenuSkyVm: MenuVm {
                 }
             } else {
                 // parse everything together
-                _ = parseTr3(menuTr3, rootNode)
+                _ = parseTr3Node(menuTr3, rootNode)
             }
             return rootNode.children.first?.children ?? []
 
         } else {
 
             for child in rootTr3.children {
-                _ = parseTr3(child, rootNode)
+                _ = parseTr3Node(child, rootNode)
             }
             return rootNode.children
         }
     }
 
     /// recursively parse tr3 hierachy
-    static func parseTr3(_ tr3: Tr3,
-                         _ parentNode: MuNode) -> MuNodeTr3 {
+    static func parseTr3Node(_ tr3: Tr3,
+                         _ parentNode: MuNode) -> MuTr3Node {
 
-        let node = MuNodeTr3(tr3, parent: parentNode)
+        let node = MuTr3Node(tr3, parent: parentNode)
         for child in tr3.children {
             if child.name.first != "_" {
-                _ = parseTr3(child, node)
+                _ = parseTr3Node(child, node)
             }
         }
         return node
@@ -71,15 +71,15 @@ public class MenuSkyVm: MenuVm {
 
     /// merge menu.view with with menu.model
     static func mergeTr3(_ viewTr3: Tr3,
-                         _ parentNode: MuNodeTr3) {
+                         _ parentNode: MuTr3Node) {
 
-        func findTr3Node(_ tr3: Tr3) -> MuNodeTr3? {
+        func findTr3Node(_ tr3: Tr3) -> MuTr3Node? {
             if parentNode.title == tr3.name {
                 return parentNode
             }
             for childNode in parentNode.children {
                 if childNode.title == tr3.name,
-                let childNodeTr3 = childNode as? MuNodeTr3 {
+                let childNodeTr3 = childNode as? MuTr3Node {
                     return childNodeTr3
                 }
             }
@@ -88,7 +88,7 @@ public class MenuSkyVm: MenuVm {
 
         for child in viewTr3.children {
             if let nodeTr3 = findTr3Node(child) {
-                let icon = MuNodeTr3.makeTr3Icon(child)
+                let icon = MuTr3Node.makeTr3Icon(child)
                 nodeTr3.icon = icon
                 nodeTr3.viewTr3 = viewTr3
                 if nodeTr3.children.count == 1,

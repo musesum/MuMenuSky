@@ -5,8 +5,7 @@ import MuMenu
 import Tr3
 
 
-/// shared between 1 or more MuNodeVm
-open class MuNodeTr3: MuNode {
+open class MuTr3Node: MuNode {
 
     var modelTr3: Tr3
     var viewTr3: Tr3?
@@ -18,7 +17,7 @@ open class MuNodeTr3: MuNode {
 
         self.modelTr3 = modelTr3
         super.init(name: modelTr3.name,
-                   icon: MuNodeTr3.makeTr3Icon(modelTr3),
+                   icon: MuTr3Node.makeTr3Icon(modelTr3),
                    parent: parent)
 
         nodeProto = self
@@ -29,7 +28,7 @@ open class MuNodeTr3: MuNode {
     init(_ modelTr3: Tr3,
          _ nodeType: MuNodeType,
          _ icon: MuIcon,
-         parent: MuNodeTr3? = nil) {
+         parent: MuTr3Node? = nil) {
 
         self.modelTr3 = modelTr3
 
@@ -54,7 +53,7 @@ open class MuNodeTr3: MuNode {
 
         let nodeType = getNodeType()
         if nodeType.isLeaf {
-            _ = MuNodeTr3(modelTr3, nodeType, icon, parent: self)
+            _ = MuTr3Node(modelTr3, nodeType, icon, parent: self)
         }
     }
 

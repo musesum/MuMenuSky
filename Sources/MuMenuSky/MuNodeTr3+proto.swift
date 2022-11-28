@@ -53,7 +53,7 @@ extension MuTr3Node: MuNodeProtocol {
         }
         return result
     }
-    public func getRange(named: String) -> ClosedRange<Float> {
+    public func getRange(named: String) -> ClosedRange<Double> {
 
         let any = modelTr3.component(named: named)
 
@@ -65,9 +65,9 @@ extension MuTr3Node: MuNodeProtocol {
             return 0...1
         }
     }
-    public func getRanges(named: [String]) -> [(String,ClosedRange<Float>)] {
+    public func getRanges(named: [String]) -> [(String,ClosedRange<Double>)] {
 
-        var result = [(String,ClosedRange<Float>)]()
+        var result = [(String,ClosedRange<Double>)]()
 
         let comps = modelTr3.components(named: named)
         for (name, any) in comps {

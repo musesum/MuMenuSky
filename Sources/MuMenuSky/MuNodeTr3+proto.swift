@@ -32,7 +32,7 @@ extension MuTr3Node: MuNodeProtocol {
 
         if let val = any as? Tr3ValScalar {
             return val.now
-        } else if let num = any as? Float {
+        } else if let num = any as? Double {
             return num
         } else {
             return nil

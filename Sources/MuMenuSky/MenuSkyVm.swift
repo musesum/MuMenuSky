@@ -34,13 +34,6 @@ public class MenuSkyVm: MenuVm {
                 let model = parseTr3Node(modelTr3, rootNode)
                 mergeTr3(viewTr3, model)
 
-                let components = viewTr3.components(named: ["depth", "touch"])
-                
-                for (key,value) in components {
-                    if let scalar = (value as? Tr3ValScalar) {
-                        print("*** \(key): \(scalar.now)")
-                    }
-                }
             } else {
                 // parse everything together
                 _ = parseTr3Node(menuTr3, rootNode)

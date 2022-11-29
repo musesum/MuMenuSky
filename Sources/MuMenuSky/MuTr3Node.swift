@@ -41,11 +41,7 @@ open class MuTr3Node: MuNode {
     }
 
     override public func touch() {
-        if let viewTr3 {
-            let number = MuTouchNumber.getNext()
-            let nameFloat = ("touch", Float(number))
-            viewTr3.setAny(nameFloat, [.sneak])
-        }
+        viewTr3?.updateTime()
     }
     /// optional leaf node for changing values
     func makeOptionalLeaf() {

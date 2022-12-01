@@ -17,7 +17,6 @@ public class MenuSkyVm: MenuVm {
         skyTreeVm.addBranchVms([skyBranchVm])
         super.init(MuRootVm(corner, treeVms: [skyTreeVm]))
         MuIcon.altBundle = MuMenuSky.bundle
-        //??? rootVm.hideBranches() 
     }
 
     static func skyNodes(_ rootTr3: Tr3, corner: MuCorner) -> [MuNode] {
@@ -32,7 +31,7 @@ public class MenuSkyVm: MenuVm {
                let viewTr3  = cornerTr3.findPath("view") {
 
                 let model = parseTr3Node(modelTr3, rootNode)
-                mergeTr3(viewTr3, model)
+                mergeTr3Node(viewTr3, model)
 
             } else {
                 // parse everything together
@@ -63,7 +62,7 @@ public class MenuSkyVm: MenuVm {
     }
 
     /// merge menu.view with with menu.model
-    static func mergeTr3(_ viewTr3: Tr3,
+    static func mergeTr3Node(_ viewTr3: Tr3,
                          _ parentNode: MuTr3Node) {
 
         func findTr3Node(_ tr3: Tr3) -> MuTr3Node? {
@@ -89,7 +88,7 @@ public class MenuSkyVm: MenuVm {
                    grandChild.nodeType.isLeaf {
                     grandChild.icon = icon
                 }
-                mergeTr3(child, nodeTr3)
+                mergeTr3Node(child, nodeTr3)
             }
         }
     }

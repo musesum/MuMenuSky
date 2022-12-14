@@ -13,9 +13,14 @@ public class MenuSkyVm: MenuVm {
         // init in sequence: nodes, root, tree, branch, touch
         let skyTreeVm = MuTreeVm(axis: axis, corner: corner)
         let skyNodes = MenuSkyVm.skyNodes(rootTr3, corner: corner)
-        let skyBranchVm = MuBranchVm(nodes: skyNodes, treeVm: skyTreeVm)
+
+        let skyBranchVm = MuBranchVm(nodes: skyNodes,
+                                     treeVm: skyTreeVm,
+                                     prevNodeVm: nil)
+        
         skyTreeVm.addBranchVms([skyBranchVm])
-        super.init(MuRootVm(corner, treeVms: [skyTreeVm]))
+        let rootVm = MuRootVm(corner, treeVms: [skyTreeVm])
+        super.init(rootVm)
         MuIcon.altBundle = MuMenuSky.bundle
     }
 

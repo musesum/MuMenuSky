@@ -106,6 +106,11 @@ extension MuTr3Node: MuNodeProtocol {
                     } else {
                         proxy.updateLeaf(any)
                     }
+                } else {
+                    let comps = tr3.components(named: ["x", "y"])
+                    if comps.count == 2 {
+                        proxy.updateLeaf(comps)
+                    }
                 }
             }
         }

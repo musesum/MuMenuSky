@@ -28,11 +28,12 @@ public class MenuSkyVm: MenuVm {
 
         let rootNode = MuTr3Node(rootTr3)
 
-        if let menuTr3 = rootTr3.findPath("menu") {
+        if let menuTr3 = rootTr3.findPath("menu"),
+            let modelTr3 = menuTr3.findPath("model") {
 
             let abbreviation = corner.abbreviation()
+
             if let cornerTr3 = menuTr3.findPath(abbreviation),
-               let modelTr3 = cornerTr3.findPath("model"),
                let viewTr3  = cornerTr3.findPath("view") {
 
                 let model = parseTr3Node(modelTr3, rootNode)

@@ -5,7 +5,7 @@ import MuMenu
 import Tr3
 import Par
 
-extension MuTr3Node: MuNodeProtocol {
+extension MuTr3Node: MuMenuSync {
 
     public func setAny(named: String,_ any: Any) {
 
@@ -89,11 +89,11 @@ extension MuTr3Node: MuNodeProtocol {
         // print("\(tr3.scriptLineage(3)).\(tr3.id): \(tr3.FloatVal() ?? -1)")
         if let tr3 = any as? Tr3 {
             //TODO: visitor.newVisit(id) {
-            for proxy in proxies {
+            for leaf in leaves {
                 if let p = tr3.CGPointVal() {
 
                     // TODO: get rid of CGPoint?
-                    proxy.updateLeaf(p)
+                    leaf.updateLeaf(p)
 
                 } else if let name = tr3.getName(in: MuNodeLeaves),
                           let any = tr3.component(named: name) {
@@ -101,15 +101,15 @@ extension MuTr3Node: MuNodeProtocol {
                     if let val = any as? Tr3ValScalar {
 
                         let num = val.now
-                        proxy.updateLeaf(num)
+                        leaf.updateLeaf(num)
 
                     } else {
-                        proxy.updateLeaf(any)
+                        leaf.updateLeaf(any)
                     }
                 } else {
                     let comps = tr3.components(named: ["x", "y"])
                     if comps.count == 2 {
-                        proxy.updateLeaf(comps)
+                        leaf.updateLeaf(comps)
                     }
                 }
             }

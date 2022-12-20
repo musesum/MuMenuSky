@@ -20,7 +20,7 @@ open class MuTr3Node: MuNode {
                    icon: MuTr3Node.makeTr3Icon(modelTr3),
                    parent: parent)
 
-        nodeProto = self
+        menuSync = self
         makeOptionalLeaf()
     }
 
@@ -37,7 +37,7 @@ open class MuTr3Node: MuNode {
 
         modelTr3.addClosure(getting) // update node value closuer
         
-        nodeProto = self // setup delegate for MuValue protocol
+        menuSync = self // setup delegate for MuValue protocol
     }
 
     override public func touch() {

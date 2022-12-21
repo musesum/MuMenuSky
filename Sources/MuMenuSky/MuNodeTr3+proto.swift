@@ -7,17 +7,19 @@ import Par
 
 extension MuTr3Node: MuMenuSync {
 
-    public func setAny(named: String,_ any: Any) {
-
-        var options = Tr3SetOptions([.activate])
-        if caching { options.insert(.cache) }
-        modelTr3.setAny((named,any), options, Visitor(id)) //TODO: get Visitor(id) from caller
+    public func setAny(named: String,_ any: Any, _ visitor: Visitor) {
+        if visitor.newVisit(hash) {
+            var options = Tr3SetOptions([.activate])
+            if caching { options.insert(.cache) }
+            modelTr3.setAny((named,any), options, visitor)
+        }
     }
-    public func setAnys(_ anys: [(String, Any)]) {
-
-        var options = Tr3SetOptions([.activate])
-        if caching { options.insert(.cache) }
-        modelTr3.setAnys(anys, options, Visitor(id)) //TODO: get Visitor(id) from caller
+    public func setAnys(_ anys: [(String, Any)], _ visitor: Visitor) {
+        if visitor.newVisit(hash) {
+            var options = Tr3SetOptions([.activate])
+            if caching { options.insert(.cache) }
+            modelTr3.setAnys(anys, options, visitor) 
+        }
     }
 
     public func resetDefault() {
@@ -83,33 +85,35 @@ extension MuTr3Node: MuMenuSync {
     }
 
     /// callback from tr3
-    ///
-    /// even though the val
-    public func getting(_ any: Any, _ visitor: Visitor) {
-        // print("\(tr3.scriptLineage(3)).\(tr3.id): \(tr3.FloatVal() ?? -1)")
-        if let tr3 = any as? Tr3 {
-            //TODO: visitor.newVisit(id) {
-            for leaf in leaves {
-                if let p = tr3.CGPointVal() {
+    public func syncModel(_ any: Any, _ visitor: Visitor) {
 
-                    // TODO: get rid of CGPoint?
-                    leaf.updateLeaf(p)
+        visitor.startVisit(hash) {
+            DispatchQueue.main.async { visit() }
+        }
+        func visit() {
+            if let tr3 = any as? Tr3 {
+                for leaf in self.leaves {
+                    
+                    if let p = tr3.CGPointVal() {
+                        // TODO: get rid of CGPoint?
+                        leaf.updateLeaf(p, visitor)
 
-                } else if let name = tr3.getName(in: MuNodeLeaves),
-                          let any = tr3.component(named: name) {
+                    } else if let name = tr3.getName(in: MuNodeLeaves),
+                              let any = tr3.component(named: name) {
 
-                    if let val = any as? Tr3ValScalar {
+                        if let val = any as? Tr3ValScalar {
 
-                        let num = val.now
-                        leaf.updateLeaf(num)
+                            let num = val.now
+                            leaf.updateLeaf(num, visitor)
 
+                        } else {
+                            leaf.updateLeaf(any, visitor)
+                        }
                     } else {
-                        leaf.updateLeaf(any)
-                    }
-                } else {
-                    let comps = tr3.components(named: ["x", "y"])
-                    if comps.count == 2 {
-                        leaf.updateLeaf(comps)
+                        let comps = tr3.components(named: ["x", "y"])
+                        if comps.count == 2 {
+                            leaf.updateLeaf(comps, visitor)
+                        }
                     }
                 }
             }

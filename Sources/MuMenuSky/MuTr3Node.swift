@@ -35,7 +35,7 @@ open class MuTr3Node: MuNode {
         super.init(name: modelTr3.name, icon: icon, parent: parent)
         self.nodeType = nodeType
 
-        modelTr3.addClosure(getting) // update node value closuer
+        modelTr3.addClosure(syncModel) // update node value closuer
         
         menuSync = self // setup delegate for MuValue protocol
     }

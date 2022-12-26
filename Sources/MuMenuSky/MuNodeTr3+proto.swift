@@ -94,16 +94,12 @@ extension MuTr3Node: MuMenuSync {
             if let tr3 = any as? Tr3 {
                 for leaf in self.leaves {
                     
-                    if let p = tr3.CGPointVal() {
-                        // TODO: get rid of CGPoint?
-                        leaf.updateLeaf(p, visitor)
-
-                    } else if let name = tr3.getName(in: MuNodeLeaves),
-                              let any = tr3.component(named: name) {
+                    if let name = tr3.getName(in: MuNodeLeaves),
+                       let any = tr3.component(named: name) {
 
                         if let val = any as? Tr3ValScalar {
 
-                            let num = val.now
+                            let num = val.normalized()
                             leaf.updateLeaf(num, visitor)
 
                         } else {
@@ -111,9 +107,13 @@ extension MuTr3Node: MuMenuSync {
                         }
                     } else {
                         let comps = tr3.components(named: ["x", "y"])
-                        if comps.count == 2 {
-                            leaf.updateLeaf(comps, visitor)
+                        var vals = [Double]()
+                        for (_,val) in comps {
+                            if let v = val as? Tr3ValScalar {
+                                vals.append(v.normalized())
+                            }
                         }
+                        leaf.updateLeaf(vals, visitor)
                     }
                 }
             }

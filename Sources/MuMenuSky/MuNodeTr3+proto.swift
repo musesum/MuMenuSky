@@ -7,18 +7,24 @@ import Par
 
 extension MuTr3Node: MuMenuSync {
 
-    public func setAny(named: String,_ any: Any, _ visitor: Visitor) {
+    public func setAny(named: String,_ any: Any, _ visitor: Visitor) -> Bool {
         if visitor.newVisit(hash) {
             var options = Tr3SetOptions([.activate])
             if caching { options.insert(.cache) }
             modelTr3.setAny((named,any), options, visitor)
+            return true
+        } else {
+            return false
         }
     }
-    public func setAnys(_ anys: [(String, Any)], _ visitor: Visitor) {
+    public func setAnys(_ anys: [(String, Any)], _ visitor: Visitor) -> Bool {
         if visitor.newVisit(hash) {
             var options = Tr3SetOptions([.activate])
             if caching { options.insert(.cache) }
-            modelTr3.setAnys(anys, options, visitor) 
+            modelTr3.setAnys(anys, options, visitor)
+            return true
+        } else {
+            return false
         }
     }
 

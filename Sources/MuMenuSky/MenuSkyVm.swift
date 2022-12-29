@@ -8,11 +8,11 @@ public class MenuSkyVm: MenuVm {
 
     public init(_ corner: MuCorner,
                 _ axis: Axis,
-                _ rootTr3: Tr3) {
+                _ rootNode: MuTr3Node) {
 
         // init in sequence: nodes, root, tree, branch, touch
         let skyTreeVm = MuTreeVm(axis: axis, corner: corner)
-        let skyNodes = MenuSkyVm.skyNodes(rootTr3, corner: corner)
+        let skyNodes = MenuSkyVm.skyNodes(rootNode, corner: corner)
 
         let skyBranchVm = MuBranchVm(nodes: skyNodes,
                                      treeVm: skyTreeVm,
@@ -24,16 +24,16 @@ public class MenuSkyVm: MenuVm {
         MuIcon.altBundle = MuMenuSky.bundle
     }
 
-    static func skyNodes(_ rootTr3: Tr3, corner: MuCorner) -> [MuNode] {
+    static func skyNodes(_ rootNode: MuTr3Node, corner: MuCorner) -> [MuNode] {
 
-        let rootNode = MuTr3Node(rootTr3)
+        let rootTr3 = rootNode.modelTr3
 
         if let menuTr3 = rootTr3.findPath("menu"),
             let modelTr3 = menuTr3.findPath("model") {
 
-            let abbreviation = corner.abbreviation()
+            let cornerStr = corner.str()
 
-            if let cornerTr3 = menuTr3.findPath(abbreviation),
+            if let cornerTr3 = menuTr3.findPath(cornerStr),
                let viewTr3  = cornerTr3.findPath("view") {
 
                 let model = parseTr3Node(modelTr3, rootNode)

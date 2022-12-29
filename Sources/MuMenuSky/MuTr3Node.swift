@@ -12,7 +12,7 @@ open class MuTr3Node: MuNode {
     var caching = false
     var axis: Axis = .vertical
 
-    init(_ modelTr3: Tr3,
+    public init(_ modelTr3: Tr3,
          parent: MuNode? = nil) {
 
         self.modelTr3 = modelTr3

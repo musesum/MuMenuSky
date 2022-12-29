@@ -87,10 +87,9 @@ extension MuTr3Node: MuMenuSync {
     /// callback from tr3
     public func syncModel(_ any: Any, _ visitor: Visitor) {
 
-        guard visitor.newVisit(hash) else { return }
         DispatchQueue.main.async {
             if let tr3 = any as? Tr3 {
-                for leaf in self.leaves {
+                for leaf in self.leafProtos {
                     
                     if let name = tr3.getName(in: MuNodeLeaves),
                        let any = tr3.component(named: name) {

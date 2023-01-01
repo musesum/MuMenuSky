@@ -92,33 +92,15 @@ extension MuTr3Node: MuMenuSync {
 
     /// callback from tr3
     public func syncModel(_ any: Any, _ visitor: Visitor) {
+        guard let tr3 = any as? Tr3 else { return }
 
-        DispatchQueue.main.async {
-            if let tr3 = any as? Tr3 {
-                for leaf in self.leafProtos {
-                    
-                    if let name = tr3.getName(in: MuNodeLeaves),
-                       let any = tr3.component(named: name) {
+        for leaf in self.leafProtos {
 
-                        if let val = any as? Tr3ValScalar {
+            let comps = tr3.components(named: MuNodeLeafNames)
+            let vals = comps.map { ($1 as? Tr3ValScalar)?.normalized() }
 
-                            let num = val.normalized()
-                            leaf.updateLeaf(num, visitor)
-
-                        } else {
-                            leaf.updateLeaf(any, visitor)
-                        }
-                    } else {
-                        let comps = tr3.components(named: ["x", "y"])
-                        var vals = [Double]()
-                        for (_,val) in comps {
-                            if let v = val as? Tr3ValScalar {
-                                vals.append(v.normalized())
-                            }
-                        }
-                        leaf.updateLeaf(vals, visitor)
-                    }
-                }
+            DispatchQueue.main.async {
+                leaf.updateLeaf(vals, visitor)
             }
         }
     }

@@ -97,7 +97,7 @@ extension MuTr3Node: MuMenuSync {
         for leaf in self.leafProtos {
 
             let comps = tr3.components(named: MuNodeLeafNames)
-            let vals = comps.map { ($1 as? Tr3ValScalar)?.normalized() }
+            let vals = comps.compactMap { ($1 as? Tr3ValScalar)?.normalized() }
 
             DispatchQueue.main.async {
                 leaf.updateLeaf(vals, visitor)

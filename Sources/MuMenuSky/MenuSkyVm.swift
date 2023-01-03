@@ -3,33 +3,49 @@
 import SwiftUI
 import MuMenu
 import Tr3
+import Par
 
 public class MenuSkyVm: MenuVm {
 
+    let id: Int = Visitor.nextId()
+
+    /// one or two menus emanating from a corner
+    ///
+    ///  - parameters:
+    ///     - corner: placement of root node
+    ///     - rootAxis: (tr3 root node, axis)
+    ///
+    ///   - note: assuming maximum of two menues from corner,
+    ///     with different axis
+    ///
     public init(_ corner: MuCorner,
-                _ axis: Axis,
-                _ rootNode: MuTr3Node) {
+                _ rootAxis: [(MuTr3Node,Axis)]) {
 
-        // init in sequence: nodes, root, tree, branch, touch
-        let skyTreeVm = MuTreeVm(axis: axis, corner: corner)
-        let skyNodes = MenuSkyVm.skyNodes(rootNode, corner: corner)
+        var skyTreeVms = [MuTreeVm]()
 
-        let skyBranchVm = MuBranchVm(nodes: skyNodes,
-                                     treeVm: skyTreeVm,
-                                     prevNodeVm: nil)
-        
-        skyTreeVm.addBranchVms([skyBranchVm])
-        let rootVm = MuRootVm(corner, treeVms: [skyTreeVm])
+        for (rootNode,axis) in rootAxis {
+            let cornerAxis = CornerAxis(corner,axis)
+            let skyTreeVm = MuTreeVm(cornerAxis)
+            let skyNodes = MenuSkyVm.skyNodes(rootNode, corner)
+
+            let skyBranchVm = MuBranchVm(nodes: skyNodes,
+                                         treeVm: skyTreeVm,
+                                         prevNodeVm: nil)
+            skyTreeVm.addBranchVms([skyBranchVm])
+            skyTreeVms.append(skyTreeVm)
+        }
+        let rootVm = MuRootVm(corner, treeVms: skyTreeVms)
         super.init(rootVm)
         MuIcon.altBundle = MuMenuSky.bundle
     }
 
-    static func skyNodes(_ rootNode: MuTr3Node, corner: MuCorner) -> [MuNode] {
+    static func skyNodes(_ rootNode: MuTr3Node,
+                         _ corner: MuCorner) -> [MuNode] {
 
         let rootTr3 = rootNode.modelTr3
 
         if let menuTr3 = rootTr3.findPath("menu"),
-            let modelTr3 = menuTr3.findPath("model") {
+           let modelTr3 = menuTr3.findPath("model") {
 
             let cornerStr = corner.str()
 
@@ -56,7 +72,7 @@ public class MenuSkyVm: MenuVm {
 
     /// recursively parse tr3 hierachy
     static func parseTr3Node(_ tr3: Tr3,
-                         _ parentNode: MuNode) -> MuTr3Node {
+                             _ parentNode: MuNode) -> MuTr3Node {
 
         let node = MuTr3Node(tr3, parent: parentNode)
         for child in tr3.children {
@@ -69,7 +85,7 @@ public class MenuSkyVm: MenuVm {
 
     /// merge menu.view with with menu.model
     static func mergeTr3Node(_ viewTr3: Tr3,
-                         _ parentNode: MuTr3Node) {
+                             _ parentNode: MuTr3Node) {
 
         func findTr3Node(_ tr3: Tr3) -> MuTr3Node? {
             if parentNode.title == tr3.name {
@@ -77,7 +93,7 @@ public class MenuSkyVm: MenuVm {
             }
             for childNode in parentNode.children {
                 if childNode.title == tr3.name,
-                let childNodeTr3 = childNode as? MuTr3Node {
+                   let childNodeTr3 = childNode as? MuTr3Node {
                     return childNodeTr3
                 }
             }
@@ -98,5 +114,11 @@ public class MenuSkyVm: MenuVm {
             }
         }
     }
+
+}
+extension MenuSkyVm: Hashable {
+    
+    public static func == (lhs: MenuSkyVm, rhs: MenuSkyVm) -> Bool { lhs.id == rhs.id }
+    public func hash(into hasher: inout Hasher) { hasher.combine(id) }
 
 }

@@ -21,11 +21,12 @@ public class MenuSkyVm: MenuVm {
     public init(_ corner: MuCorner,
                 _ rootAxis: [(MuTr3Node,Axis)]) {
 
+        let rootVm = MuRootVm(corner)
         var skyTreeVms = [MuTreeVm]()
 
         for (rootNode,axis) in rootAxis {
             let cornerAxis = CornerAxis(corner,axis)
-            let skyTreeVm = MuTreeVm(cornerAxis)
+            let skyTreeVm = MuTreeVm(rootVm, cornerAxis)
             let skyNodes = MenuSkyVm.skyNodes(rootNode, corner)
 
             let skyBranchVm = MuBranchVm(nodes: skyNodes,
@@ -34,8 +35,8 @@ public class MenuSkyVm: MenuVm {
             skyTreeVm.addBranchVms([skyBranchVm])
             skyTreeVms.append(skyTreeVm)
         }
-        let rootVm = MuRootVm(corner, treeVms: skyTreeVms)
         super.init(rootVm)
+        rootVm.updateTreeVms(skyTreeVms)
         MuIcon.altBundle = MuMenuSky.bundle
     }
 

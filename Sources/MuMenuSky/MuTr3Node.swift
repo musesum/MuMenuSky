@@ -26,7 +26,7 @@ open class MuTr3Node: MuNode {
 
     /// this is a leaf node
     init(_ modelTr3: Tr3,
-         _ nodeType: MuMenuType,
+         _ nodeType: MuNodeType,
          _ icon: MuIcon,
          parent: MuTr3Node? = nil) {
 
@@ -54,12 +54,12 @@ open class MuTr3Node: MuNode {
     }
 
     /// expression parameters: val vxy tog seg tap x,y indicates a leaf node
-    public func getNodeType() -> MuMenuType {
+    public func getNodeType() -> MuNodeType {
         
         if let name = modelTr3.getName(in: MuNodeLeaves) {
-            return  MuMenuType(rawValue: name) ?? .node
+            return  MuNodeType(rawValue: name) ?? .node
         } else if modelTr3.contains(names: ["x","y"]) {
-            return MuMenuType.vxy
+            return MuNodeType.vxy
         }
         return .node
     }

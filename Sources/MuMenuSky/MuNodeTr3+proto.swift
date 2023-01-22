@@ -30,7 +30,7 @@ extension MuTr3Node: MuMenuSync {
 
     public func resetDefault() {
         modelTr3.bindDefaults()
-        modelTr3.activate()
+        //??? modelTr3.activate()
     }
 
     // MARK: - get
@@ -93,6 +93,8 @@ extension MuTr3Node: MuMenuSync {
     /// callback from tr3
     public func syncModel(_ any: Any, _ visitor: Visitor) {
         guard let tr3 = any as? Tr3 else { return }
+
+       //??? if visitor.from.model { return } //?? 
 
         for leaf in self.leafProtos {
 

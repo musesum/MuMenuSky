@@ -94,7 +94,10 @@ extension MuTr3Node: MuMenuSync {
     public func syncModel(_ any: Any, _ visitor: Visitor) {
         guard let tr3 = any as? Tr3 else { return }
 
-       //??? if visitor.from.model { return } //?? 
+        if !visitor.from.animate {
+            print("\(tr3.parentPath(99)): \(tr3.val?.scriptVal(.now) ?? "??") \(visitor.log) \(self.hash)")
+        }
+
 
         for leaf in self.leafProtos {
 

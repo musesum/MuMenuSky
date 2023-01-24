@@ -63,29 +63,25 @@ extension MuTr3Node: MuMenuSync {
     }
     public func getRange(named: String) -> ClosedRange<Double> {
 
-        let any = modelTr3.component(named: named)
+        let component = modelTr3.component(named: named)
 
-        if let val = any as? Tr3ValScalar {
-            return val.min...val.max
-        } else if let val = modelTr3.val as? Tr3ValScalar {
-            return val.min...val.max
-        } else {
-            return 0...1
-        }
+        let range = ((component as? Tr3ValScalar)?.range() ??
+                (modelTr3.val as? Tr3ValScalar)?.range() ??
+                0...1)
+        return range 
     }
     public func getRanges(named: [String]) -> [(String,ClosedRange<Double>)] {
 
         var result = [(String,ClosedRange<Double>)]()
 
         let comps = modelTr3.components(named: named)
-        for (name, any) in comps {
-            if let val = any as? Tr3ValScalar {
-                result.append((name, val.min...val.max))
-            } else if let val = modelTr3.val as? Tr3ValScalar {
-                result.append((name, val.min...val.max))
-            } else {
-                result.append((name, 0...1))
-            }
+        for (name, component) in comps {
+
+            let range = ((component as? Tr3ValScalar)?.range() ??
+                         (modelTr3.val as? Tr3ValScalar)?.range() ??
+                         0...1)
+
+            result.append((name,range))
         }
         return result
     }
@@ -93,19 +89,24 @@ extension MuTr3Node: MuMenuSync {
     /// callback from tr3
     public func syncModel(_ any: Any, _ visitor: Visitor) {
         guard let tr3 = any as? Tr3 else { return }
+        
+        if true || //???
+            visitor.from.animate ||
+            visitor.newVisit(self.hash) {
 
-        if !visitor.from.animate {
-            print("\(tr3.parentPath(99)): \(tr3.val?.scriptVal(.now) ?? "??") \(visitor.log) \(self.hash)")
-        }
+            if !visitor.from.animate {
+                print("\(tr3.parentPath(99)) \(tr3.val?.scriptVal(.now) ?? "??") \(visitor.log) \(self.hash)")
+            }
 
 
-        for leaf in self.leafProtos {
+            for leaf in self.leafProtos {
 
-            let comps = tr3.components(named: MuNodeLeafNames)
-            let vals = comps.compactMap { ($1 as? Tr3ValScalar)?.normalized() }
+                let comps = tr3.components(named: MuNodeLeafNames)
+                let vals = comps.compactMap { ($1 as? Tr3ValScalar)?.normalized() }
 
-            DispatchQueue.main.async {
-                leaf.updateLeaf(vals, visitor)
+                DispatchQueue.main.async {
+                    leaf.updateLeaf(vals, visitor)
+                }
             }
         }
     }

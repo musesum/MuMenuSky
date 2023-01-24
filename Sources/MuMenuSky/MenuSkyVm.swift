@@ -46,7 +46,7 @@ public class MenuSkyVm: MenuVm {
         let rootTr3 = rootNode.modelTr3
 
         if let menuTr3 = rootTr3.findPath("menu"),
-           let modelTr3 = menuTr3.findPath("model") {
+           let modelTr3 = rootTr3.findPath("model") {
 
             let cornerStr = corner.str()
 
@@ -84,7 +84,7 @@ public class MenuSkyVm: MenuVm {
         return node
     }
 
-    /// merge menu.view with with menu.model
+    /// merge menu.view with with model
     static func mergeTr3Node(_ viewTr3: Tr3,
                              _ parentNode: MuTr3Node) {
 

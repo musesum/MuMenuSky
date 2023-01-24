@@ -65,13 +65,13 @@ open class MuTr3Node: MuNode {
     }
 
     static func makeTr3Icon(_ tr3: Tr3) -> MuIcon {
-        let components = tr3.components(named: ["symbol", "image", "abbrv", "cursor"])
+        let components = tr3.components(named: ["symbol", "image", "text", "cursor"])
         for (key,value) in components {
             if let value = value as? String {
                 switch key {
                     case "symbol": return MuIcon(.symbol, named: value)
                     case "image" : return MuIcon(.image,  named: value)
-                    case "abbrv" : return MuIcon(.abbrv,  named: value)
+                    case "text"  : return MuIcon(.text,   named: value)
                     case "cursor": return MuIcon(.cursor, named: value)
                     default: continue
                 }

@@ -3,6 +3,7 @@
 import Foundation
 import Tr3
 import MuSkyTr3
+import Par // Visitor
 
 public struct MuMenuSky {
 
@@ -62,7 +63,7 @@ public struct MuMenuSky {
            let mergeVal = mergeTr3.val,
            let tr3Val = tr3.val {
 
-            _ = tr3Val.setVal(mergeVal)
+            _ = tr3Val.setVal(mergeVal, Visitor(0))
         }
     }
 

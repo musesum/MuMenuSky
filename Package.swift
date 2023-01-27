@@ -12,21 +12,21 @@ let package = Package(
             targets: ["MuMenuSky"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/musesum/Tr3.git", from: "0.3.0"),
-        .package(url: "https://github.com/musesum/MuMenu.git", from: "0.3.0"),
-        .package(url: "https://github.com/musesum/MuSkyTr3.git", from: "0.3.0"),
+        .package(url: "https://github.com/musesum/MuFlo.git", from: "0.23.0"),
+        .package(url: "https://github.com/musesum/MuMenu.git", from: "0.23.0"),
+        .package(url: "https://github.com/musesum/MuSkyFlo.git", from: "0.23.0"),
     ],
     targets: [
         .target(
             name: "MuMenuSky",
             dependencies: [
                 .product(name: "MuMenu", package: "MuMenu"),
-                .product(name: "MuSkyTr3", package: "MuSkyTr3"),
-                .product(name: "Tr3", package: "Tr3")],
+                .product(name: "MuSkyFlo", package: "MuSkyFlo"),
+                .product(name: "MuFlo", package: "MuFlo")],
             resources: [.process("Resources")]),
         .testTarget(
             name: "MuMenuSkyTests",
-            dependencies: ["MuMenu","MuSkyTr3","Tr3"]),
+            dependencies: ["MuMenu","MuSkyFlo","MuFlo"]),
         
     ]
 )

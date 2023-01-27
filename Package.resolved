@@ -10,9 +10,9 @@
       }
     },
     {
-      "identity" : "muskytr3",
+      "identity" : "muskyflo",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/MuSkyTr3.git",
+      "location" : "https://github.com/musesum/MuSkyFlo.git",
       "state" : {
         "revision" : "b89367d68a180988f54d47d10adcacf9cb93fa9d",
         "version" : "0.3.230108"
@@ -37,9 +37,9 @@
       }
     },
     {
-      "identity" : "tr3",
+      "identity" : "flo",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/Tr3.git",
+      "location" : "https://github.com/musesum/Flo.git",
       "state" : {
         "revision" : "9938d90de2487373d71bb167c0711576c6910c9f",
         "version" : "0.3.230108"

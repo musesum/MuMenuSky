@@ -2,22 +2,21 @@
 
 import SwiftUI
 import MuMenu
-import Tr3
+import MuFlo
 
 
-open class MuTr3Node: MuNode {
+open class MuFloNode: MuNode {
 
-    var modelTr3: Tr3
-    var viewTr3: Tr3?
-    var caching = false
+    var modelFlo: Flo
+    var viewFlo: Flo?
     var axis: Axis = .vertical
 
-    public init(_ modelTr3: Tr3,
+    public init(_ modelFlo: Flo,
          parent: MuNode? = nil) {
 
-        self.modelTr3 = modelTr3
-        super.init(name: modelTr3.name,
-                   icon: MuTr3Node.makeTr3Icon(modelTr3),
+        self.modelFlo = modelFlo
+        super.init(name: modelFlo.name,
+                   icon: MuFloNode.makeFloIcon(modelFlo),
                    parent: parent)
 
         menuSync = self
@@ -25,23 +24,23 @@ open class MuTr3Node: MuNode {
     }
 
     /// this is a leaf node
-    init(_ modelTr3: Tr3,
+    init(_ modelFlo: Flo,
          _ nodeType: MuNodeType,
          _ icon: MuIcon,
-         parent: MuTr3Node? = nil) {
+         parent: MuFloNode? = nil) {
 
-        self.modelTr3 = modelTr3
+        self.modelFlo = modelFlo
 
-        super.init(name: modelTr3.name, icon: icon, parent: parent)
+        super.init(name: modelFlo.name, icon: icon, parent: parent)
         self.nodeType = nodeType
 
-        modelTr3.addClosure(syncModel) // update node value closuer
+        modelFlo.addClosure(syncMenuModel) // update node value closuer
         
         menuSync = self // setup delegate for MuValue protocol
     }
 
     override public func touch() {
-        viewTr3?.updateTime()
+        viewFlo?.updateTime()
     }
     /// optional leaf node for changing values
     func makeOptionalLeaf() {
@@ -49,23 +48,23 @@ open class MuTr3Node: MuNode {
 
         let nodeType = getNodeType()
         if nodeType.isLeaf {
-            _ = MuTr3Node(modelTr3, nodeType, icon, parent: self)
+            _ = MuFloNode(modelFlo, nodeType, icon, parent: self)
         }
     }
 
     /// expression parameters: val vxy tog seg tap x,y indicates a leaf node
     public func getNodeType() -> MuNodeType {
         
-        if let name = modelTr3.getName(in: MuNodeLeaves) {
+        if let name = modelFlo.getName(in: MuNodeLeaves) {
             return  MuNodeType(rawValue: name) ?? .node
-        } else if modelTr3.contains(names: ["x","y"]) {
+        } else if modelFlo.contains(names: ["x","y"]) {
             return MuNodeType.vxy
         }
         return .node
     }
 
-    static func makeTr3Icon(_ tr3: Tr3) -> MuIcon {
-        let components = tr3.components(named: ["symbol", "image", "text", "cursor"])
+    static func makeFloIcon(_ flo: Flo) -> MuIcon {
+        let components = flo.components(named: ["symbol", "image", "text", "cursor"])
         for (key,value) in components {
             if let value = value as? String {
                 switch key {

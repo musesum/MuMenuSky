@@ -7,17 +7,17 @@ import MuPar
 
 extension MuFloNode: MuMenuSync {
 
-    public func setMenuAny(named: String,_ any: Any, _ visitor: Visitor) -> Bool {
-        if visitor.newVisit(hash) {
-            modelFlo.setNameAnys([(named,any)], .activate, visitor)
+    public func setMenuAny(named: String,_ any: Any, _ visit: Visitor) -> Bool {
+        if visit.newVisit(hash) {
+            modelFlo.setNameAnys([(named,any)], .activate, visit)
             return true
         } else {
             return false
         }
     }
-    public func setMenuAnys(_ anys: [(String, Any)], _ visitor: Visitor) -> Bool {
-        if visitor.newVisit(hash) {
-            modelFlo.setNameAnys(anys, .activate, visitor)
+    public func setMenuAnys(_ anys: [(String, Any)], _ visit: Visitor) -> Bool {
+        if visit.newVisit(hash) {
+            modelFlo.setNameAnys(anys, .activate, visit)
             return true
         } else {
             return false
@@ -83,15 +83,15 @@ extension MuFloNode: MuMenuSync {
     }
 
     /// callback from flo
-    public func syncMenuModel(_ any: Any, _ visitor: Visitor) {
+    public func syncMenuModel(_ any: Any, _ visit: Visitor) {
         guard let flo = any as? Flo else { return }
         
         if true || //???
-            visitor.from.animate ||
-            visitor.newVisit(self.hash) {
+            visit.from.animate ||
+            visit.newVisit(self.hash) {
 
-            if !visitor.from.animate {
-                print("\(flo.parentPath(99)) \(flo.val?.scriptVal(.now) ?? "??") \(visitor.log) \(self.hash)")
+            if !visit.from.animate {
+                print("\(flo.parentPath(99)) \(flo.val?.scriptVal(.now) ?? "??") \(visit.log) \(self.hash)")
             }
 
 
@@ -101,7 +101,7 @@ extension MuFloNode: MuMenuSync {
                 let vals = comps.compactMap { ($1 as? FloValScalar)?.normalized() }
 
                 DispatchQueue.main.async {
-                    leaf.updateLeaf(vals, visitor)
+                    leaf.updateLeaf(vals, visit)
                 }
             }
         }

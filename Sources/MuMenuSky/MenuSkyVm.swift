@@ -18,7 +18,7 @@ public class MenuSkyVm: MenuVm {
     ///   - note: assuming maximum of two menues from corner,
     ///     with different axis
     ///
-    public init(_ corner: MuCorner,
+    public init(_ corner: CornerOps,
                 _ rootAxis: [(MuFloNode,Axis)]) {
 
         let rootVm = MuRootVm(corner)
@@ -41,7 +41,7 @@ public class MenuSkyVm: MenuVm {
     }
 
     static func skyNodes(_ rootNode: MuFloNode,
-                         _ corner: MuCorner) -> [MuNode] {
+                         _ corner: CornerOps) -> [MuNode] {
 
         let rootFlo = rootNode.modelFlo
 

@@ -7,17 +7,17 @@ import MuPar
 
 extension MuFloNode: MuMenuSync {
 
-    public func setMenuAny(named: String,_ any: Any, _ visit: Visitor) -> Bool {
+    public func setMenuAny(named: String,_ val: Double, _ visit: Visitor) -> Bool {
         if visit.newVisit(hash) {
-            modelFlo.setNameAnys([(named,any)], .activate, visit)
+            modelFlo.setNameVals([(named,val)], .activate, visit)
             return true
         } else {
             return false
         }
     }
-    public func setMenuAnys(_ anys: [(String, Any)], _ visit: Visitor) -> Bool {
+    public func setMenuAnys(_ anys: [(String, Double)], _ visit: Visitor) -> Bool {
         if visit.newVisit(hash) {
-            modelFlo.setNameAnys(anys, .activate, visit)
+            modelFlo.setNameVals(anys, .activate, visit)
             return true
         } else {
             return false
@@ -87,11 +87,11 @@ extension MuFloNode: MuMenuSync {
         guard let flo = any as? Flo else { return }
         
         if true || //???
-            visit.from.animate ||
+            visit.from.tween ||
             visit.newVisit(self.hash) {
 
-            if !visit.from.animate {
-                print("\(flo.parentPath(99)) \(flo.val?.scriptVal(.now) ?? "??") \(visit.log) \(self.hash)")
+            if !visit.from.tween {
+                //print("\(flo.parentPath(99)) \(flo.val?.scriptVal(.now) ?? "??") \(visit.log) \(self.hash)")
             }
 
 

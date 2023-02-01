@@ -24,8 +24,8 @@ extension MuFloNode: MuMenuSync {
         }
     }
 
-    public func resetDefault() {
-        modelFlo.bindDefaults()
+    public func resetDefault(_ visit: Visitor) {
+        modelFlo.bindDefaults(visit)
         //?? modelFlo.activate()
     }
 

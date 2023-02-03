@@ -24,7 +24,7 @@ extension MuFloNode: MuMenuSync {
         }
     }
 
-    public func resetDefault(_ visit: Visitor) {
+    public func setMenuDefault(_ visit: Visitor) {
         modelFlo.bindDefaults(visit)
         //?? modelFlo.activate()
     }
@@ -85,24 +85,14 @@ extension MuFloNode: MuMenuSync {
     /// callback from flo
     public func syncMenuModel(_ any: Any, _ visit: Visitor) {
         guard let flo = any as? Flo else { return }
-        
-        if true || //???
-            visit.from.tween ||
-            visit.newVisit(self.hash) {
 
-            if !visit.from.tween {
-                //print("\(flo.parentPath(99)) \(flo.val?.scriptVal(.now) ?? "??") \(visit.log) \(self.hash)")
-            }
+        for leaf in self.leafProtos {
 
+            let comps = flo.components(named: MuNodeLeafNames)
+            let vals = comps.compactMap { ($1 as? FloValScalar)?.normalized() }
 
-            for leaf in self.leafProtos {
-
-                let comps = flo.components(named: MuNodeLeafNames)
-                let vals = comps.compactMap { ($1 as? FloValScalar)?.normalized() }
-
-                DispatchQueue.main.async {
-                    leaf.updateLeaf(vals, visit)
-                }
+            DispatchQueue.main.async {
+                leaf.updateLeaf(vals, visit)
             }
         }
     }

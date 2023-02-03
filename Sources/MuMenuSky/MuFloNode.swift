@@ -34,7 +34,7 @@ open class MuFloNode: MuNode {
         super.init(name: modelFlo.name, icon: icon, parent: parent)
         self.nodeType = nodeType
 
-        modelFlo.addClosure(syncMenuModel) // update node value closuer
+        modelFlo.addClosure(syncMenuModel) // update node value closure
         
         menuSync = self // setup delegate for MuValue protocol
     }

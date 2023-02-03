@@ -14,5 +14,6 @@ public class TestSkyFlo: NSObject {
 
     func parseScriptFiles() {
         _ = MuMenuSky.parseFlo(root, "menu")
+        _ = MuMenuSky.parseFlo(root, "model")
     }
 }

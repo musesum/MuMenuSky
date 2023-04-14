@@ -12,15 +12,16 @@ open class MuFloNode: MuNode {
     var axis: Axis = .vertical
 
     public init(_ modelFlo: Flo,
-         parent: MuNode? = nil) {
+                parent: MuNode? = nil) {
 
         self.modelFlo = modelFlo
+        
         super.init(name: modelFlo.name,
-                   icon: MuFloNode.makeFloIcon(modelFlo),
                    parent: parent)
+        icon = makeFloIcon(modelFlo)
 
         menuSync = self
-        makeOptionalLeaf()
+        makeOptionalControl()
     }
 
     /// this is a leaf node
@@ -43,12 +44,13 @@ open class MuFloNode: MuNode {
         viewFlo?.updateTime()
     }
     /// optional leaf node for changing values
-    func makeOptionalLeaf() {
+    func makeOptionalControl() { //??? 
         if children.count > 0 { return }
-
         let nodeType = getNodeType()
-        if nodeType.isLeaf {
+        if nodeType.isControl {
             _ = MuFloNode(modelFlo, nodeType, icon, parent: self)
+        } else {
+            self.nodeType = nodeType
         }
     }
 
@@ -63,20 +65,21 @@ open class MuFloNode: MuNode {
         return .node
     }
 
-    static func makeFloIcon(_ flo: Flo) -> MuIcon {
-        let components = flo.components(named: ["symbol", "image", "text", "cursor"])
-        for (key,value) in components {
-            if let value = value as? String {
+    func makeFloIcon(_ flo: Flo) -> MuIcon {
+        let components = flo.components(named: ["symbol", "image", "svg", "text", "cursor"])
+        for (key,name) in components {
+            if let name = name as? String {
                 switch key {
-                    case "symbol": return MuIcon(.symbol, named: value)
-                    case "image" : return MuIcon(.image,  named: value)
-                    case "text"  : return MuIcon(.text,   named: value)
-                    case "cursor": return MuIcon(.cursor, named: value)
+                    case "symbol": return MuIcon(.symbol , name, nodeType)
+                    case "image" : return MuIcon(.image  , name, nodeType)
+                    case "svg"   : return MuIcon(.svg    , name, nodeType)
+                    case "text"  : return MuIcon(.text   , name, nodeType)
+                    case "cursor": return MuIcon(.cursor , name, nodeType)
                     default: continue
                 }
             }
         }
-        return MuIcon(.none, named: "")
+        return MuIcon(.none, "??")
     }
 }
 

@@ -103,12 +103,12 @@ public class MenuSkyVm: MenuVm {
 
         for child in viewFlo.children {
             if let nodeFlo = findFloNode(child) {
-                let icon = MuFloNode.makeFloIcon(child)
+                let icon = nodeFlo.makeFloIcon(child)
                 nodeFlo.icon = icon
                 nodeFlo.viewFlo = viewFlo
                 if nodeFlo.children.count == 1,
                    let grandChild = nodeFlo.children.first,
-                   grandChild.nodeType.isLeaf {
+                   grandChild.nodeType.isControl {
                     grandChild.icon = icon
                 }
                 mergeFloNode(child, nodeFlo)

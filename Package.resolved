@@ -1,12 +1,30 @@
 {
   "pins" : [
     {
+      "identity" : "muflo",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/musesum/MuFlo.git",
+      "state" : {
+        "revision" : "3aa11542f8e8fc7e4a16fd7304ee43c0214986a1",
+        "version" : "0.23.419"
+      }
+    },
+    {
       "identity" : "mumenu",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/MuMenu.git",
       "state" : {
-        "revision" : "918a2939f0d49c2df2f845170eab551e42933772",
-        "version" : "0.3.230108"
+        "revision" : "0fb30420f3d9c8f73ca568e24888a9614089ebae",
+        "version" : "0.23.203"
+      }
+    },
+    {
+      "identity" : "mupar",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/musesum/MuPar.git",
+      "state" : {
+        "revision" : "84c1daaebac2091286b4da2381a5fc4108f276d3",
+        "version" : "0.23.201"
       }
     },
     {
@@ -14,17 +32,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/musesum/MuSkyFlo.git",
       "state" : {
-        "revision" : "b89367d68a180988f54d47d10adcacf9cb93fa9d",
-        "version" : "0.3.230108"
+        "revision" : "fec2a7e6fbf84d25398e3fe70bfce04b2f1e0a16",
+        "version" : "0.23.409"
       }
     },
     {
-      "identity" : "par",
+      "identity" : "mutime",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/Par.git",
+      "location" : "https://github.com/musesum/MuTime.git",
       "state" : {
-        "revision" : "539f17842a60d55c223c996049fd24a0923d24ac",
-        "version" : "0.3.230108"
+        "revision" : "81adea94421037659bca892ac210686e8b28d7e3",
+        "version" : "0.23.201"
       }
     },
     {
@@ -34,15 +52,6 @@
       "state" : {
         "revision" : "937e904258d22af6e447a0b72c0bc67583ef64a2",
         "version" : "1.0.4"
-      }
-    },
-    {
-      "identity" : "flo",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/musesum/Flo.git",
-      "state" : {
-        "revision" : "9938d90de2487373d71bb167c0711576c6910c9f",
-        "version" : "0.3.230108"
       }
     }
   ],

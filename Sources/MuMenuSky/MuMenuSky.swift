@@ -13,13 +13,13 @@ public struct MuMenuSky {
                             _ ext: String) -> String? {
 
         guard let path = Bundle.module.path(forResource: filename, ofType: ext)  else {
-            print("🚫 MuMenuSky couldn't find file: \(filename).\(ext)")
+            print("🚫 MuMenuSky:: couldn't find file: \(filename).\(ext)")
             return nil
         }
         do {
             return try String(contentsOfFile: path) }
         catch {
-            print("🚫 MuMenuSky::\(#function) error:\(error) loading contents of:\(path)")
+            print("🚫 MuMenuSky:: error:\(error) loading contents of:\(path)")
         }
         return nil
     }

@@ -23,7 +23,7 @@ public struct MuMenuSky {
         }
         return nil
     }
-
+    @discardableResult
     static public func parseFlo(_ root: Flo,
                                 _ filename: String,
                                 _ ext: String = "flo.h") -> Bool {

@@ -17,7 +17,7 @@ public class TestSkyFlo: NSObject {
                                   "menu.corner", "midi"]
     func parseScriptFiles() {
         for name in floScriptNames {
-            _ = MuMenuSky.parseFlo(root, name)
+            MuMenuSky.parseFlo(root, name)
         }
     }
 }

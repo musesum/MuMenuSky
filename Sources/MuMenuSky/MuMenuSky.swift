@@ -63,7 +63,7 @@ public struct MuMenuSky {
            let mergeVal = mergeFlo.val,
            let floVal = flo.val {
 
-            _ = floVal.setVal(mergeVal, Visitor(0))
+            _ = floVal.setVal(mergeVal, Visitor(0), [.now,.next])
         }
     }
 

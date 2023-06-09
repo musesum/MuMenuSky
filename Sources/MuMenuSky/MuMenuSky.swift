@@ -60,10 +60,10 @@ public struct MuMenuSky {
     static func mergeNow(_ mergeFlo: Flo, with root: Flo) {
         if let dispatch = root.dispatch?.dispatch,
            let (flo,_) = dispatch[mergeFlo.hash],
-           let mergeVal = mergeFlo.val,
-           let floVal = flo.val {
+           let mergeExprs = mergeFlo.exprs,
+           let floExprs = flo.exprs {
 
-            _ = floVal.setVal(mergeVal, Visitor(0), [.now,.next])
+            _ = floExprs.setExprs(mergeExprs, Visitor(0), [.now_,.val])
         }
     }
 

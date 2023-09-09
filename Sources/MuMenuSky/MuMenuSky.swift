@@ -3,7 +3,6 @@
 import Foundation
 import MuFlo
 import MuSkyFlo
-import MuVisit
 
 public struct MuMenuSky {
 
@@ -36,16 +35,7 @@ public struct MuMenuSky {
         return success
     }
 
-    static public func mergeFlo(_ root: Flo,
-                                _ filename: String,
-                                _ ext: String = "flo.h") -> Bool {
-
-
-        guard let script = MuSkyFlo.read(filename, ext) ?? read(filename, ext) else {
-            return false
-        }
-        return mergeScript(root, script)
-    }
+    
     static public func mergeScript(_ root: Flo,
                                    _ script: String) -> Bool {
 

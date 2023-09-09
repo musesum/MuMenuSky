@@ -12,10 +12,10 @@ public class TestSkyFlo: NSObject {
         parseScriptFiles()
     }
 
-    private var floScriptNames = ["sky", "shader", "midi",
+    private var scriptNames = ["sky", "shader", "midi",
                                   "model", "menu", "plato", "cube", "corner"]
     func parseScriptFiles() {
-        for name in floScriptNames {
+        for name in scriptNames {
             MuMenuSky.parseFlo(root, name)
         }
     }

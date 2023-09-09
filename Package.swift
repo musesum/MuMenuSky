@@ -1,4 +1,4 @@
-// swift-tools-version: 5.7
+// swift-tools-version: 5.8
 
 import PackageDescription
 
@@ -11,21 +11,19 @@ let package = Package(
             targets: ["MuMenuSky"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/musesum/MuFlo.git", from: "0.23.0"),
-        .package(url: "https://github.com/musesum/MuMenu.git", from: "0.23.0"),
-        .package(url: "https://github.com/musesum/MuSkyFlo.git", from: "0.23.0"),
+        .package(url: "https://github.com/musesum/MuFlo.git", .branch("main")),
+        .package(url: "https://github.com/musesum/MuSkyFlo.git",.branch("main")),
     ],
     targets: [
         .target(
             name: "MuMenuSky",
             dependencies: [
-                .product(name: "MuMenu", package: "MuMenu"),
                 .product(name: "MuSkyFlo", package: "MuSkyFlo"),
                 .product(name: "MuFlo", package: "MuFlo")],
             resources: [.process("Resources")]),
         .testTarget(
             name: "MuMenuSkyTests",
-            dependencies: ["MuMenu","MuSkyFlo","MuFlo"]),
-        
+            dependencies: ["MuSkyFlo","MuFlo"]),
+
     ]
 )

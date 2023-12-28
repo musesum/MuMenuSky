@@ -13,7 +13,7 @@ public class TestSkyFlo: NSObject {
     }
 
     private var scriptNames = ["sky", "shader", "midi",
-                                  "model", "menu", "plato", "cube", "corner"]
+                                  "model", "menu", "plato", "corner"]
     func parseScriptFiles() {
         for name in scriptNames {
             MuMenuSky.parseFlo(root, name)
